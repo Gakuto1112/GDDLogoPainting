@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  release:
+    types:
+        - released
+        - prereleased
+
+jobs:
+  generate_readme:
+    name: Generate README.txt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install gawk
+        run: sudo apt install -y gawk
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: Generate READNE.txt
+        run: cat ./.github/README.md | awk -f ./.github/workflow_scripts/generate_readne.awk > ./README.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: readme
+          path: ./README.txt
+          retention-days: 1
+
+  build:
+    name: Build pack bundle
+    needs: generate_readme
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: Prepare output directory
+        run: mkdir ./out
+      - name: Donwload artifact
+        uses: actions/download-artifact@v4.2.1
+        with:
+          name: readme
+          path: ./out
+      - name: Move data pack
+        run: |
+          mkdir ./out/datapack
+          mv -r ./data_pack ./out/datapack/GDDLogoPainting
+      - name: Move resource pack
+        run: |
+          mkdir ./out/resourcepack
+          mv -r ./resource_pack ./out/resourcepack/GDDLogoPainting
+      - name: Zip bundle
+        run: zip -r ./GDDLogoPainting.zip ./out
+      - name: Attach bundle to release assets
+        run: gh release upload ${TAG_NAME} ./GDDLogoPainting.zip --repo ${REPOSITORY}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          REPOSITORY: ${{ github.repository }}
