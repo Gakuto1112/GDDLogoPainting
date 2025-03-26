@@ -37,15 +37,19 @@ jobs:
         uses: actions/download-artifact@v4.2.1
         with:
           name: readme
-          path: ./out
+          path: ./
+      - name: Move READNE.txt
+        run: |
+          unzip ./readme.zip
+          mv ./readme/README.txt ./out/README.txt
       - name: Move data pack
         run: |
           mkdir ./out/datapack
-          cp -r ./data_pack ./out/datapack/GDDLogoPainting
+          mv ./data_pack ./out/datapack/GDDLogoPainting
       - name: Move resource pack
         run: |
           mkdir ./out/resourcepack
-          cp -r ./resource_pack ./out/resourcepack/GDDLogoPainting
+          mv ./resource_pack ./out/resourcepack/GDDLogoPainting
       - name: Zip bundle
         run: zip -r ./GDDLogoPainting.zip ./out
       - name: Attach bundle to release assets
