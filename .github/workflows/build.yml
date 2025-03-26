@@ -5,8 +5,6 @@ on:
     types:
         - released
         - prereleased
-  push:
-
 
 jobs:
   generate_readme:
@@ -39,7 +37,6 @@ jobs:
         uses: actions/download-artifact@v4.2.1
         with:
           name: readme
-      - run: ls
       - name: Move READNE.txt
         run: mv ./README.txt ./out/README.txt
       - name: Move data pack
@@ -51,7 +48,8 @@ jobs:
           mkdir ./out/resourcepack
           mv ./resource_pack ./out/resourcepack/GDDLogoPainting
       - name: Zip bundle
-        run: zip -r ./GDDLogoPainting.zip ./out
+        run: zip -r ../GDDLogoPainting.zip ./
+        working-directory: ./out
       - name: Attach bundle to release assets
         run: gh release upload ${TAG_NAME} ./GDDLogoPainting.zip --repo ${REPOSITORY}
         env:
