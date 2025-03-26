@@ -5,6 +5,8 @@ on:
     types:
         - released
         - prereleased
+  push:
+
 
 jobs:
   generate_readme:
@@ -37,10 +39,9 @@ jobs:
         uses: actions/download-artifact@v4.2.1
         with:
           name: readme
+      - run: ls
       - name: Move READNE.txt
-        run: |
-          unzip ./readme.zip
-          mv ./readme/README.txt ./out/README.txt
+        run: mv ./README.txt ./out/README.txt
       - name: Move data pack
         run: |
           mkdir ./out/datapack
