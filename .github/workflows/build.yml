@@ -40,7 +40,7 @@ jobs:
         with:
           name: readme
           path: ./
-      - run: cd ./
+      - run: ls
       - name: Move READNE.txt
         run: |
           unzip ./readme.zip
