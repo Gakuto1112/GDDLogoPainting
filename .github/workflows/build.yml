@@ -41,11 +41,11 @@ jobs:
       - name: Move data pack
         run: |
           mkdir ./out/datapack
-          mv -r ./data_pack ./out/datapack/GDDLogoPainting
+          cp -r ./data_pack ./out/datapack/GDDLogoPainting
       - name: Move resource pack
         run: |
           mkdir ./out/resourcepack
-          mv -r ./resource_pack ./out/resourcepack/GDDLogoPainting
+          cp -r ./resource_pack ./out/resourcepack/GDDLogoPainting
       - name: Zip bundle
         run: zip -r ./GDDLogoPainting.zip ./out
       - name: Attach bundle to release assets
