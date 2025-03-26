@@ -5,7 +5,7 @@
 
 ![メイン](./readme_images/main.jpg)
 
-（写真に写っているキャラクターに関しては[こちら](https://github.com/Gakuto1112/FiguraBlueArchiveCharacters)をご覧ください。）
+（写真に写っているキャラクターに関しては[こちら](https://github.com/Gakuto1112/FiguraBlueArchiveCharacters)をご覧ください。） <!-- EXCLUDED_LINE -->
 
 ## このデータパックとリソースパックについて
 こちらのデータパックとリソースパックでは、ブルーアーカイブのゲーム開発部のロゴが描かれた絵画を追加します。
